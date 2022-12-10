@@ -1,10 +1,11 @@
 import React from 'react';
-import Login from '../components/Login';
+import Home from './Home';
+
 
 const Index = () => {
     return (
         <>
-          <Login/>
+            <Home/>
         </>
     );
 };

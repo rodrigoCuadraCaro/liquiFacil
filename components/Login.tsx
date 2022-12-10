@@ -61,19 +61,21 @@ const Login = () => {
                                 </div>
 
                                 <div className="text-sm">
-                                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                        ¿Olvidaste tu contraseña??
+                                    <a href="Dashboard" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        ¿Olvidaste tu contraseña?
                                     </a>
                                 </div>
                             </div>
 
                             <div>
+                                <a href='Dashboard'>
                                 <Button
                                     type="submit"
                                     className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 >
                                     Iniciar Sesion
                                 </Button>
+                                </a>
                             </div>
                         </form>
                     </div>
