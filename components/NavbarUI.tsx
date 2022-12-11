@@ -1,10 +1,11 @@
 import { Button, Label, TextInput } from 'flowbite-react';
 import React from 'react';
+import Link from "next/link";
 
 const NavbarUi = () => {
     return (
         <>
-            <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
+            <nav className="bg-white border-b border-gray-200 fixed z-30 w-full border-solid border-black">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center justify-start">
@@ -23,28 +24,11 @@ const NavbarUi = () => {
                                           clip-rule="evenodd"></path>
                                 </svg>
                             </Button>
-                            <a href="https://github.com/rodrigoCuadraCaro" className="text-xl font-bold flex items-center lg:ml-2.5">
+                            <Link href="/Dashboard" className="text-xl font-bold flex items-center lg:ml-2.5">
                                 <img src="https://lams.studio/_next/image?url=%2FCuadra.jpg&w=128&q=75" className="h-6 mr-2"
                                      alt="ZWS Logo"/>
-                                    <span className="self-center whitespace-nowrap">ZWS</span>
-                            </a>
-                            <form action="#" method="GET" className="hidden lg:block lg:pl-32">
-                                <Label htmlFor="topbar-search" className="sr-only">Search</Label>
-                                <div className="mt-1 relative lg:w-64">
-                                    <div
-                                        className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                  clip-rule="evenodd"></path>
-                                        </svg>
-                                    </div>
-                                    <TextInput type="text" name="email" id="topbar-search"
-                                           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full pl-10 p-2.5"
-                                           placeholder="Search"/>
-                                </div>
-                            </form>
+                                    <span className="self-center whitespace-nowrap">User Name</span>
+                            </Link>
                         </div>
                         <div className="flex items-center">
                             <Button id="toggleSidebarMobileSearch" type="button"
@@ -59,7 +43,7 @@ const NavbarUi = () => {
                             </Button>
                             <a href="Home"
                                className="hidden sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3">
-                                Desconectarse
+                                Cerrar Sesión
                             </a>
                         </div>
                     </div>
@@ -70,4 +54,3 @@ const NavbarUi = () => {
 };
 
 export default NavbarUi;
->>>>>>> a2019427fab1891339a34b595329c10d48b791cc
