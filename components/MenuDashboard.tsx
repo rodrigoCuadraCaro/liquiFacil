@@ -22,7 +22,7 @@ const MenuDashboard = () => {
                                 <Card.Text>
                                     Gestiona a los colaboradores de tu empresa.
                                 </Card.Text>
-                                <Link href={"/liqForm"}>
+                                <Link href={"/workersList"}>
                                     <Button variant="primary">Ir</Button>
                                 </Link>
                             </Card.Body>
@@ -50,7 +50,7 @@ const MenuDashboard = () => {
                                 <Card.Text>
                                     Consulta las liquidaciones de tus colaboradores
                                 </Card.Text>
-                                <Link href={"/liqForm"}>
+                                <Link href={"/liqHistory"}>
                                     <Button variant="primary">Ir</Button>
                                 </Link>
                             </Card.Body>

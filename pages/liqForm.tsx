@@ -83,9 +83,8 @@ const LiqForm = () => {
                                 <Form.Control disabled/>
                             </Form.Group>
                         </Row>
-
-                        <Button variant="primary" type="submit">
-                            Submit
+                        <Button variant="primary" type="submit" className={'mt-3'}>
+                            Generar Liquidación
                         </Button>
                     </Form>
                 </div>
