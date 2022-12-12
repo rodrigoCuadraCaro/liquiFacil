@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Link from 'next/link';
 
 const MenuDashboard = () => {
     return (
@@ -21,7 +22,9 @@ const MenuDashboard = () => {
                                 <Card.Text>
                                     Gestiona a los colaboradores de tu empresa.
                                 </Card.Text>
-                                <Button variant="primary">Ir</Button>
+                                <Link href={"/liqForm"}>
+                                    <Button variant="primary">Ir</Button>
+                                </Link>
                             </Card.Body>
                         </Card>
                     </div>
@@ -33,7 +36,9 @@ const MenuDashboard = () => {
                                 <Card.Text>
                                     Genera las liquidaciones con un solo click.
                                 </Card.Text>
-                                <Button variant="primary">Ir</Button>
+                                <Link href={"/liqForm"}>
+                                    <Button variant="primary">Ir</Button>
+                                </Link>
                             </Card.Body>
                         </Card>
                     </div>
@@ -45,7 +50,9 @@ const MenuDashboard = () => {
                                 <Card.Text>
                                     Consulta las liquidaciones de tus colaboradores
                                 </Card.Text>
-                                <Button variant="primary">Ir</Button>
+                                <Link href={"/liqForm"}>
+                                    <Button variant="primary">Ir</Button>
+                                </Link>
                             </Card.Body>
                         </Card>
                     </div>
