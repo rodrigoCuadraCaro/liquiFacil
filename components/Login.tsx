@@ -1,5 +1,6 @@
 import {Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import React from 'react';
+import Link from "next/link";
 
 const Login = () => {
     return (
@@ -66,7 +67,6 @@ const Login = () => {
                                     </a>
                                 </div>
                             </div>
-
                             <div>
                                 <a href='Dashboard'>
                                 <Button
@@ -76,6 +76,15 @@ const Login = () => {
                                     Iniciar Sesion
                                 </Button>
                                 </a>
+                            </div>
+                            <div>
+                                <Link href={'/worker_landing'}>
+                                    <Button
+                                        className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    >
+                                        Consulta tus liquidaciones
+                                    </Button>
+                                </Link>
                             </div>
                         </form>
                     </div>
