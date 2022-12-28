@@ -1,7 +1,7 @@
 import React from 'react';
-import NavbarUI from "../components/NavbarUI";
-import Sidebar from "../components/Sidebar";
-import Liq_list from "../components/liq_list";
+import NavbarUI from "../../components/NavbarUI";
+import Sidebar from "../../components/Sidebar";
+import Liq_list from "../../components/liq_list";
 
 const HistoryList = () => {
     return (

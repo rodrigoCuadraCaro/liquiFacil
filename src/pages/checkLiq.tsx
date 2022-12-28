@@ -1,7 +1,7 @@
 import React from 'react';
-import NavbarUI from "../components/NavbarUI";
-import Sidebar from "../components/Sidebar";
-import Liquidacion from "../components/liquidacion";
+import NavbarUI from "../../components/NavbarUI";
+import Sidebar from "../../components/Sidebar";
+import Liquidacion from "../../components/liquidacion";
 
 const CheckLiq = () => {
     return (

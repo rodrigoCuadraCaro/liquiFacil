@@ -1,7 +1,7 @@
 import React from 'react';
-import Sidebar from "../components/Sidebar";
-import NavbarUI from "../components/NavbarUI";
-import WorkerForm from "../components/worker_form";
+import Sidebar from "../../components/Sidebar";
+import NavbarUI from "../../components/NavbarUI";
+import WorkerForm from "../../components/worker_form";
 
 const AddWorker = () => {
     return (

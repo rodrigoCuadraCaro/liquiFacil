@@ -1,8 +1,8 @@
 import React from 'react';
-import NavbarUI from "../components/NavbarUI";
-import Sidebar from "../components/Sidebar";
+import NavbarUI from "../../components/NavbarUI";
+import Sidebar from "../../components/Sidebar";
 import Image from "next/image";
-import Worker_card from "../components/worker_card";
+import Worker_card from "../../components/worker_card";
 import Link from "next/link";
 
 const WorkersList = () => {

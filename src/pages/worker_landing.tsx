@@ -8,7 +8,7 @@ const WorkerLanding = () => {
         <>
             <Container>
                 <div className={'flex justify-center w-12/12 mt-60'}>
-                <form className="mt-8 space-y-6" action="#" method="POST">
+                <form className="mt-8 space-y-6" action="src/pages#" method="POST">
                     <input type="hidden" name="remember" defaultValue="true" />
                     <div className="-space-y-px rounded-md shadow-sm mb-5 w-100">
                         <div>

@@ -1,11 +1,11 @@
 import React from 'react';
-import NavbarUI from "../components/NavbarUI";
-import Sidebar from "../components/Sidebar";
-import Worker_card from "../components/worker_card";
-import MenuDashboard from "../components/MenuDashboard";
+import NavbarUI from "../../components/NavbarUI";
+import Sidebar from "../../components/Sidebar";
+import Worker_card from "../../components/worker_card";
+import MenuDashboard from "../../components/MenuDashboard";
 import {Dropdown} from "@restart/ui";
 import Menu = Dropdown.Menu;
-import Liq_history from "../components/liq_history";
+import Liq_history from "../../components/liq_history";
 
 const LiqHistory = () => {
     return (
