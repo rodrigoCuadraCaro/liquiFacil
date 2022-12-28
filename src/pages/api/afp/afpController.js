@@ -1,5 +1,5 @@
-import {dbConnect} from '../../utils/mongoose';
-import AFP from '../../../backend/Models/AFP';
+import {dbConnect} from '../../../utils/mongoose';
+import AFP from '../../../../backend/Models/AFP';
 
 dbConnect();
 export default async function handler(req, res) {
