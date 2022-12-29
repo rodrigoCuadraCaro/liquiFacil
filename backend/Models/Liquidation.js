@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose, {Schema, model, models} from 'mongoose';
 
 const liquidationSchema = new mongoose.Schema({
     workerName: {
@@ -47,5 +47,4 @@ const liquidationSchema = new mongoose.Schema({
     }
 });
 
-const Liquidation = mongoose.model('Liquidation', liquidationSchema);
-export default Liquidation;
+export default models.Liquidation || mongoose.model('Liquidation', liquidationSchema);

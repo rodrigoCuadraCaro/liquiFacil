@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         case "POST":
             try{
                 const cargo = await new Cargo(body).save();
-                return res.status(201).json(cargo);
+                return res.status(200).json(cargo);
             } catch (e) {
                 console.log(e);
                 break;

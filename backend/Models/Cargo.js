@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose, {Schema, model, models} from 'mongoose';
+
 
 const cargoSchema = new mongoose.Schema({
     name: {
@@ -15,5 +16,5 @@ const cargoSchema = new mongoose.Schema({
     }
 });
 
-const Cargo = mongoose.model('Cargo', cargoSchema);
-export default Cargo;
+export default models.Cargo || mongoose.model('Cargo', cargoSchema);
+

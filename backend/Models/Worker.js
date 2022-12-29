@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose, {Schema, model, models} from 'mongoose';
+
 
 const workerSchema = new mongoose.Schema({
     name: {
@@ -32,5 +33,4 @@ const workerSchema = new mongoose.Schema({
     }]
 });
 
-const Worker = mongoose.model('Worker', workerSchema);
-export default Worker;
+export default models.Worker || mongoose.model('Worker', workerSchema);

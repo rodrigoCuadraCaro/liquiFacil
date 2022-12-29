@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from "next/link";
 
-const WorkerCard = () => {
+export default function WorkerCard ({workers, cargo}) {
     return (
         <>
             <div className={'flex flex-row border-double border-gray border-2 p-2 mb-3 w-85'}>
@@ -9,8 +9,16 @@ const WorkerCard = () => {
                     <img src={'/images/profile.webp'} alt={'imagen de perfil'}/>
                 </div>
                 <div className={'flex justify-between ml-2'}>
-                    <p>[Nombre de Trabajador]</p>
-                    <p>[Cargo]</p>
+                    {
+                        workers.map(w => (
+                            <><p>{w.name}</p></>
+                        ))
+                    }
+                    {
+                        cargo.map(c => (
+                            <><p>{c.name}</p></>
+                        ))
+                    }
                 </div>
                 <div className={'flex ml-20'}>
                     <Link href={'/add_worker'}>
@@ -31,4 +39,19 @@ const WorkerCard = () => {
     );
 };
 
-export default WorkerCard;
+export const getServerSideProps = async (ctx) => {
+    let res = await fetch('http://localhost:3000/api/worker/workerController');
+    const workers = await res.json();
+
+    const cargoId = workers.map(w => w.cargo);
+    res = await fetch('http://localhost:3000/api/cargo/'+cargoId);
+    const cargo = res;
+
+
+    return {
+        props: {
+            workers,
+            cargo,
+        },
+    };
+}
