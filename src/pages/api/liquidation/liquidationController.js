@@ -1,5 +1,5 @@
 import {dbConnect} from '../../../utils/mongoose';
-import AFP from '../../../../backend/Models/AFP';
+import Liquidation from '../../../../backend/Models/Liquidation';
 
 dbConnect();
 export default async function handler(req, res) {
@@ -7,12 +7,12 @@ export default async function handler(req, res) {
 
     switch (method){
         case "GET":
-            const afp = await AFP.find()
-            return res.status(200).json(afp);
+            const liquidation = await Liquidation.find()
+            return res.status(200).json(liquidation);
         case "POST":
             try{
-                const savedAfp = await AFP(body).save();
-                return res.status(201).json(savedAfp);
+                const liquidation = await Liquidation(body).save();
+                return res.status(201).json(liquidation);
             } catch (e) {
                 console.log(e);
                 break;
