@@ -5,11 +5,11 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 export default function WorkerEdit ({worker, cargo, afp}) {
-    const [editWorker, setNewWorker] = useState({
-        name: "",
-        rut: "",
-        cargo: "",
-        previsionSocial: ""
+    const [editWorker, setWorker] = useState({
+        name: worker[0].name,
+        rut: worker[0].rut,
+        cargo: worker[0].cargo._id,
+        previsionSocial: worker[0].previsionSocial._id
     })
 
     const [selectedGroup, setSelectedGroup] = useState(null);
@@ -21,21 +21,22 @@ export default function WorkerEdit ({worker, cargo, afp}) {
 
     useEffect(() => {
         if (selectedGroup) {
-            const selectedCargo = worker.cargo._id;
+            const selectedCargo = cargo.find(c => c._id === selectedGroup);
             setSalarioBase(selectedCargo.salarioBase);
         }
     }, [selectedGroup]);
 
 
-    const handleChange = (e) => setNewWorker({...editWorker, [e.target.name]: e.target.value});
+    const handleChange = (e) => setWorker({...editWorker, [e.target.name]: e.target.value});
 
     const modifyWorker = async () => {
         try {
-            await fetch('http://localhost:3000/api/worker/'+worker._id, {
+            await fetch('http://localhost:3000/api/worker/'+worker[0]._id, {
                 method: 'PUT',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(editWorker)
             })
+            window.location.href='http://localhost:3000/workersList'
         } catch (e) {
             console.error(e)
         }
@@ -54,17 +55,17 @@ export default function WorkerEdit ({worker, cargo, afp}) {
                         <Row className="mb-3">
                             <Form.Group as={Col}  controlId="txtNombreCol" onChange={handleChange}>
                                 <Form.Label>Nombre Completo</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" name="name" value={worker.name}/>
+                                <Form.Control type="text" placeholder="Nombre" name="name" defaultValue={worker[0].name}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  controlId="txtRUTCol" onChange={handleChange}>
                                 <Form.Label>RUT</Form.Label>
-                                <Form.Control type="text" placeholder="RUT" name="rut" value={worker.rut}/>
+                                <Form.Control type="text" placeholder="RUT" name="rut" defaultValue={worker[0].rut}/>
                             </Form.Group>
                         </Row>
                         <Form.Group className="mb-3" controlId="formGridAddress2" onChange={handleChange}>
                             <Form.Label>Cargo</Form.Label>
-                            <Form.Select defaultValue="0" name="cargo" value={selectedGroup} onChange={handleGroupChange}>
+                            <Form.Select defaultValue={worker[0].cargo._id} name="cargo" onChange={handleGroupChange}>
                                 {cargo.length === 0 ? (
                                     <option>no hay cargos</option>
                                 ) : (
@@ -100,7 +101,7 @@ export default function WorkerEdit ({worker, cargo, afp}) {
                         </Row>
 
                         <Button variant="primary" type="submit" className={'mt-3'}>
-                            Agregar Colaborador
+                            Modificar Colaborador
                         </Button>
                     </Form>
                 </div>
