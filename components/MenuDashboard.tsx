@@ -11,7 +11,7 @@ export default function MenuDashboard (){
                     <h1>Bienvenid@!</h1>
                 </div>
                 <div className={'flex flex-row items-center pl-10 w-100'}>
-                    <h3>Hoy es [fecha dd/mm/yyyy]</h3>
+                    <h3>Que tengas una excelente jornada!</h3>
                 </div>
                 <div className={'flex flex-row items-center justify-center w-100'}>
                     <div className={'flex border-solid border-green m-5'}>

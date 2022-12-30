@@ -11,33 +11,39 @@ import ReactDOM from 'react-dom';
 
 export default function LiqForm ({workers}) {
 
-    const [workerId, setWorkerId] = useState(null);
-    const [selectedWorker, setSelectedWorker] = useState(null);
-    const [rut, setRut] = useState('');
-    const [afp, setSocialSecurityPlan] = useState('');
-    const [salary, setSalary] = useState(0);
-    const [gratuity, setGratuity] = useState(0);
-    const [unemploymentInsurance, setUnemploymentInsurance] = useState(0);
-    const [socialSecurity, setSocialSecurity] = useState(0);
-    const [totalGross, setTotalGross] = useState(0);
-    const [totalDeductions, setTotalDeductions] = useState(0);
-    const [totalNet, setTotalNet] = useState(0);
+    const [selectedWorker, setSelectedWorker] = useState(workers[0]);
+    const [afp, setSocialSecurityPlan] = useState(selectedWorker.previsionSocial);
+    const [salary, setSalary] = useState(Number(selectedWorker.cargo.salarioBase));
+    const [gratuity, setGratuity] = useState(Number(selectedWorker.cargo.gratificacion));
+    const [unemploymentInsurance, setUnemploymentInsurance] = useState(salary * 0.03);
+    const [socialSecurity, setSocialSecurity] = useState(salary * Number(selectedWorker.previsionSocial.comision));
+    const [totalGross, setTotalGross] = useState(Number(salary + gratuity));
+    const [totalDeductions, setTotalDeductions] = useState(unemploymentInsurance + socialSecurity);
+    const [totalNet, setTotalNet] = useState(totalGross - totalDeductions);
+    const [workerId, setWorkerId] = useState(selectedWorker);
+    const [rut, setRut] = useState(selectedWorker.rut);
 
-    const handleWorkerChange = (event) => {
+    const handleWorkerChange = async (event) => {
         const selectedWorker = workers?.length ? workers.find(w => w._id === event.target.value) :
-        undefined;
+            undefined;
         if (selectedWorker) {
             setSelectedWorker(selectedWorker);
-            setWorkerId(selectedWorker._id)
+            setWorkerId(selectedWorker._id);
             setRut(selectedWorker.rut);
             setSocialSecurityPlan(selectedWorker.previsionSocial);
             setSalary(Number(selectedWorker.cargo.salarioBase));
             setGratuity(Number(selectedWorker.cargo.gratificacion));
-            setUnemploymentInsurance(salary * 0.03);
-            setSocialSecurity(Number(salary * Number(selectedWorker.previsionSocial.comision)));
-            setTotalGross(salary);
-            setTotalDeductions(Number(unemploymentInsurance + socialSecurity));
-            setTotalNet(Number(totalGross - totalDeductions));
+            let segurodes = (salary * 0.03);
+            let dctoafp = (salary * Number(selectedWorker.previsionSocial.comision));
+            let totalNeto = (salary + gratuity);
+            let totalDctos = (dctoafp + segurodes);
+            let totalLiq = (totalNeto - totalDctos);
+            // Calculate the dependent state variables after setting salary and gratuity
+            setUnemploymentInsurance(await segurodes);
+            setSocialSecurity(dctoafp);
+            setTotalGross(totalNeto);
+            setTotalDeductions(totalDctos);
+            setTotalNet(totalLiq);
         }
     }
 
@@ -48,35 +54,36 @@ export default function LiqForm ({workers}) {
         };
     }, [workers]);
 
-    const [newLiquidaton, setNewLiquidation] = useState({
-        worker: workerId,
-        rut: rut,
+    const [newLiquidation, setDate] = useState({
         date: "",
-        previsionSocial: afp._id,
-        salarioBase: salary,
+        previsionSocialDiscount: socialSecurity,
+        salary: salary,
         gratificacion: gratuity,
         seguroDeCesantia: unemploymentInsurance,
-        previsionSocialDiscount: socialSecurity,
         totalBruto: totalGross,
         totalDiscounts: totalDeductions,
         totalLiquid: totalNet,
     })
 
+    const handleChange = (e) => setDate({...newLiquidation, [e.target.name]: e.target.value});
+
     const uploadLiquidation = async () => {
         try {
-            await fetch('http://localhost:3000/api/worker/'+worker[0]._id, {
-                method: 'PUT',
+            await fetch('http://localhost:3000/api/worker/workerData?id='+workerId, {
+                method: 'POST',
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(newLiquidaton)
+                body: JSON.stringify(newLiquidation)
             })
-            window.location.href='http://localhost:3000/workersList'
+            alert('Liquidacion almacenada con exito!');
+            window.location.href='http://localhost:3000/liqForm'
         } catch (e) {
+            alert('Error almacenando liquidacion');
             console.error(e)
         }
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        modifyWorker();
+        uploadLiquidation();
         console.log('enviando formulario...');
     }
 
@@ -85,9 +92,9 @@ export default function LiqForm ({workers}) {
             <NavbarUI/>
             <div className={'flex flex-col absolute mt-20 left-60 w-100 p-4'}>
                 <div className={'flex justify-center'}>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Row className="mb-3">
-                            <Form.Group as={Col} controlId="txtNombreCol">
+                            <Form.Group as={Col} controlId="worker">
                                 <Form.Label>Nombre de Trabajador</Form.Label>
                                 <Form.Select defaultValue="0" onChange={handleWorkerChange}>
                                     {
@@ -96,7 +103,9 @@ export default function LiqForm ({workers}) {
                                                 <option>No hay trabajadores disponibles</option>
                                             </>
                                         ) : workers.map(w =>
-                                            <option value={w._id}>{w.name}</option>
+                                            <>
+                                                <option value={w._id}>{w.name}</option>
+                                            </>
                                         )
                                     }
                                 </Form.Select>
@@ -104,18 +113,18 @@ export default function LiqForm ({workers}) {
 
                             <Form.Group as={Col} controlId="txtRUTCol">
                                 <Form.Label>RUT</Form.Label>
-                                <Form.Control type="text" placeholder="RUT" value={rut}disabled/>
+                                <Form.Control type="text" placeholder="RUT" value={rut} disabled/>
                             </Form.Group>
                         </Row>
 
                         <Form.Group className="mb-3" controlId="txtFecha">
                             <Form.Label>Fecha</Form.Label>
-                            <Form.Control placeholder="dd/mm/aaaa" />
+                            <Form.Control placeholder="dd/mm/aaaa" name="date" onChange={handleChange}/>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formGridAddress2">
                             <Form.Label>Previsión Social</Form.Label>
-                            <Form.Select defaultValue="null" disabled>
+                            <Form.Select onChange={handleWorkerChange} disabled>
                                 <option value={afp._id}>{afp.name}</option>
                             </Form.Select>
                         </Form.Group>
@@ -123,29 +132,29 @@ export default function LiqForm ({workers}) {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="txtSalarioBase">
                                 <Form.Label>Salario Base</Form.Label>
-                                <Form.Control value={salary}disabled/>
+                                <Form.Control value={salary} defaultValue={salary} onChange={handleWorkerChange} disabled/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="txtGratificacion">
                                 <Form.Label>Gratificacion</Form.Label>
-                                <Form.Control placeholder="Ingrese monto" value={gratuity}disabled/>
+                                <Form.Control placeholder="Ingrese monto" value={gratuity} onChange={handleWorkerChange} disabled/>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group as={Col} controlId="formGridZip">
                                 <Form.Label>Seguro de Cesantía</Form.Label>
-                                <Form.Control value={unemploymentInsurance}disabled/>
+                                <Form.Control value={unemploymentInsurance} onChange={handleWorkerChange} disabled/>
                             </Form.Group>
                             <Form.Group as={Col} controlId="formGridZip">
                                 <Form.Label>Previsión Social</Form.Label>
-                                <Form.Control value={socialSecurity} disabled/>
+                                <Form.Control value={socialSecurity} onChange={handleWorkerChange} disabled/>
                             </Form.Group>
                         </Row>
 
                         <Row>
                             <Form.Group as={Col} controlId="formGridZip">
                                 <Form.Label>Total Bruto</Form.Label>
-                                <Form.Control value={salary}disabled/>
+                                <Form.Control value={totalGross} disabled/>
                             </Form.Group>
                             <Form.Group as={Col} controlId="formGridZip">
                                 <Form.Label>Total Descuentos</Form.Label>

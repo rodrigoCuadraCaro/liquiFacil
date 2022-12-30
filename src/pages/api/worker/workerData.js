@@ -19,6 +19,15 @@ export default async function handler(req, res) {
                 console.log(e);
                 return res.status(400).json({msg: 'error in GET protocol'});
             }
+        case "POST":
+            try{
+                const worker = await Worker.findById(id);
+                worker.liquidations.push(...worker.liquidations,body);
+                return res.status(200).json(worker);
+            } catch (e){
+                console.log(e);
+                return res.status(400).json({msg: 'error in GET protocol'});
+            }
         default:
             return res.status(400).json({msg: 'method does not exists'});
     }

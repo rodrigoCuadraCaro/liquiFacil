@@ -25,9 +25,9 @@ const NavbarUi = () => {
                                 </svg>
                             </Button>
                             <Link href="/Dashboard" className="text-xl font-bold flex items-center lg:ml-2.5">
-                                <img src="https://lams.studio/_next/image?url=%2FCuadra.jpg&w=128&q=75" className="h-6 mr-2"
+                                <img src="/images/profile.webp" className="h-6 mr-2"
                                      alt="ZWS Logo"/>
-                                    <span className="self-center whitespace-nowrap">User Name</span>
+                                    <span className="self-center whitespace-nowrap">Retornar a Inicio</span>
                             </Link>
                         </div>
                         <div className="flex items-center">

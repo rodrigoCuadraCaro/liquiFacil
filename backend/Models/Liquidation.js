@@ -18,7 +18,7 @@ const liquidationSchema = new mongoose.Schema({
         ref: 'Worker'
     },
     salarioBase: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         ref: 'Worker'
     },
     gratificacion: {

@@ -19,14 +19,39 @@ const workerSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'AFP'
     },
-    /*
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },*/
     liquidations: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Liquidation'
+        date: {
+            type: Date,
+            required: true
+        },
+        salary: {
+            type: Number,
+            required: true
+        },
+        gratificacion: {
+            type: Number,
+            required: true
+        },
+        seguroDeCesantia: {
+            type: Number,
+            required: true
+        },
+        previsionSocialDiscount: {
+            type: Number,
+            required: true
+        },
+        totalBruto: {
+            type: Number,
+            required: true
+        },
+        totalDiscounts: {
+            type: Number,
+            required: true
+        },
+        totalLiquid: {
+            type: Number,
+            required: true
+        }
     }]
 });
 
