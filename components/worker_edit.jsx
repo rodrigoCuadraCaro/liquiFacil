@@ -6,10 +6,10 @@ import Button from "react-bootstrap/Button";
 
 export default function WorkerEdit ({worker, cargo, afp}) {
     const [editWorker, setWorker] = useState({
-        name: worker[0].name,
-        rut: worker[0].rut,
-        cargo: worker[0].cargo._id,
-        previsionSocial: worker[0].previsionSocial._id
+        name: worker.name,
+        rut: worker.rut,
+        cargo: worker.cargo._id,
+        previsionSocial: worker.previsionSocial._id
     })
 
     const [selectedGroup, setSelectedGroup] = useState(null);
@@ -55,17 +55,17 @@ export default function WorkerEdit ({worker, cargo, afp}) {
                         <Row className="mb-3">
                             <Form.Group as={Col}  controlId="txtNombreCol" onChange={handleChange}>
                                 <Form.Label>Nombre Completo</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" name="name" defaultValue={worker[0].name}/>
+                                <Form.Control type="text" placeholder="Nombre" name="name" defaultValue={worker.name}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  controlId="txtRUTCol" onChange={handleChange}>
                                 <Form.Label>RUT</Form.Label>
-                                <Form.Control type="text" placeholder="RUT" name="rut" defaultValue={worker[0].rut}/>
+                                <Form.Control type="text" placeholder="RUT" name="rut" defaultValue={worker.rut}/>
                             </Form.Group>
                         </Row>
                         <Form.Group className="mb-3" controlId="formGridAddress2" onChange={handleChange}>
                             <Form.Label>Cargo</Form.Label>
-                            <Form.Select defaultValue={worker[0].cargo._id} name="cargo" onChange={handleGroupChange}>
+                            <Form.Select defaultValue={worker.cargo._id} name="cargo" onChange={handleGroupChange}>
                                 {cargo.length === 0 ? (
                                     <option>no hay cargos</option>
                                 ) : (

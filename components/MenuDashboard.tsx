@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 
-const MenuDashboard = () => {
+export default function MenuDashboard (){
     return (
         <>
             <div className={'flex flex-col items-center absolute mt-20 left-60 p-4'}>
@@ -62,4 +62,13 @@ const MenuDashboard = () => {
     );
 };
 
-export default MenuDashboard;
+export const getServerSideProps = async (ctx) => {
+    let res = await fetch('http://localhost:3000/api/worker/workerData');
+    const workers = await res.json();
+
+    return {
+        props: {
+            workers,
+        },
+    };
+}

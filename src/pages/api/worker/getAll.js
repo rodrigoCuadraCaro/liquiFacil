@@ -7,13 +7,12 @@ import AFP from "../../../../backend/Models/AFP";
 
 dbConnect();
 export default async function handler(req, res) {
-    const {method, body, query: {id}} = req;
-
+    const {method} = req;
 
     switch (method){
         case "GET":
             try{
-                const worker = await Worker.findById(id).populate(['cargo', 'liquidations', 'previsionSocial']);
+                const worker = await Worker.find().populate(['cargo', 'liquidations', 'previsionSocial']);
                 return res.status(200).json(worker);
             } catch (e){
                 console.log(e);

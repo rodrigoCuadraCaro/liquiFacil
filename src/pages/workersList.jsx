@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import Image from "next/image";
 import Link from "next/link";
 import WorkerCard from "../../components/worker_card";
+import {Button} from "flowbite-react";
 
 export default function WorkersList ({workers}) {
     return (
@@ -14,17 +15,17 @@ export default function WorkersList ({workers}) {
                     {
                         workers.length === 0 ? (
                            <h2>no hay trabajadores!</h2>
-                        ): (workers.map(w =>
+                        ): (workers.map((w, index) =>
                              <>
-                                 <WorkerCard workers={w}/>
+                                 <WorkerCard key={index} workers={w}/>
                              </>
                         ))
                     }
                     <div className={'flex justify-center'}>
                         <Link href={'/add_worker'}>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                            <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                                 Agregar Colaborador
-                            </button>
+                            </Button>
                         </Link>
                     </div>
                 </div>
@@ -35,7 +36,7 @@ export default function WorkersList ({workers}) {
 };
 
 export const getServerSideProps = async (ctx) => {
-    let res = await fetch('http://localhost:3000/api/worker/workerData');
+    let res = await fetch('http://localhost:3000/api/worker/getAll');
     const workers = await res.json();
 
     return {

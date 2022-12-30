@@ -1,7 +1,7 @@
 import mongoose, {Schema, model, models} from 'mongoose';
 
 const liquidationSchema = new mongoose.Schema({
-    workerName: {
+    worker: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Worker'
     },
@@ -13,7 +13,7 @@ const liquidationSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    previsionSocialName: {
+    previsionSocial: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Worker'
     },
