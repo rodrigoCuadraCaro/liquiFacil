@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from "next/link";
 
-export default function WorkerCard ({workers, cargo}) {
+export default function WorkerCard ({workers}) {
     return (
         <>
             <div className={'flex flex-row border-double border-gray border-2 p-2 mb-3 w-85'}>
@@ -9,27 +9,22 @@ export default function WorkerCard ({workers, cargo}) {
                     <img src={'/images/profile.webp'} alt={'imagen de perfil'}/>
                 </div>
                 <div className={'flex justify-between ml-2'}>
-                    {
-                        workers.map(w => (
-                            <><p>{w.name}</p></>
-                        ))
-                    }
-                    {
-                        cargo.map(c => (
-                            <><p>{c.name}</p></>
-                        ))
-                    }
+                <p>{workers.name}</p>
+                </div>
+                <div className={'flex justify-between ml-2'}>
+                <p>{workers.cargo.name}</p>
                 </div>
                 <div className={'flex ml-20'}>
-                    <Link href={'/add_worker'}>
+                    <Link href={'/edit_worker?id='+workers._id}>
                         <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                             Editar
                         </button>
                     </Link>
                 </div>
                 <div className={'flex ml-5'}>
-                    <Link href={'/add_worker'}>
-                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                    <Link href={'/workersList'}>
+                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                        onClick={() => {deleteAndRefresh(workers._id)}}>
                             Eliminar
                         </button>
                     </Link>
@@ -54,4 +49,18 @@ export const getServerSideProps = async (ctx) => {
             cargo,
         },
     };
+}
+
+async function deleteAndRefresh(id) {
+    try {
+        await fetch('http://localhost:3000/api/worker/' + id, {
+            method: 'DELETE',
+            headers: {"Content-Type": "application/json"},
+        })
+        window.location.reload();
+        alert('Trabajador eliminado correctamente!')
+    } catch (e) {
+        alert('Ha ocurrido un error al borrar este trabajador!')
+        console.error(e)
+    }
 }

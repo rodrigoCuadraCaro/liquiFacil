@@ -19,14 +19,11 @@ const workerSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'AFP'
     },
-    salarioBase: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Cargo'
-    },
+    /*
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
+    },*/
     liquidations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Liquidation'

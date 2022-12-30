@@ -4,8 +4,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-export default function WorkerForm ({cargo, afp}) {
-    const [newWorker, setNewWorker] = useState({
+export default function WorkerEdit ({worker, cargo, afp}) {
+    const [editWorker, setNewWorker] = useState({
         name: "",
         rut: "",
         cargo: "",
@@ -21,20 +21,20 @@ export default function WorkerForm ({cargo, afp}) {
 
     useEffect(() => {
         if (selectedGroup) {
-            const selectedCargo = cargo.find(c => c._id === selectedGroup);
+            const selectedCargo = worker.cargo._id;
             setSalarioBase(selectedCargo.salarioBase);
         }
     }, [selectedGroup]);
 
 
-    const handleChange = (e) => setNewWorker({...newWorker, [e.target.name]: e.target.value});
+    const handleChange = (e) => setNewWorker({...editWorker, [e.target.name]: e.target.value});
 
-    const createWorker = async () => {
+    const modifyWorker = async () => {
         try {
-            await fetch('http://localhost:3000/api/worker/workerController', {
-                method: 'POST',
+            await fetch('http://localhost:3000/api/worker/'+worker._id, {
+                method: 'PUT',
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(newWorker)
+                body: JSON.stringify(editWorker)
             })
         } catch (e) {
             console.error(e)
@@ -42,7 +42,7 @@ export default function WorkerForm ({cargo, afp}) {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        createWorker();
+        modifyWorker();
         console.log('enviando formulario...');
     }
 
@@ -54,15 +54,14 @@ export default function WorkerForm ({cargo, afp}) {
                         <Row className="mb-3">
                             <Form.Group as={Col}  controlId="txtNombreCol" onChange={handleChange}>
                                 <Form.Label>Nombre Completo</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" name="name"/>
+                                <Form.Control type="text" placeholder="Nombre" name="name" value={worker.name}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  controlId="txtRUTCol" onChange={handleChange}>
                                 <Form.Label>RUT</Form.Label>
-                                <Form.Control type="text" placeholder="RUT" name="rut"/>
+                                <Form.Control type="text" placeholder="RUT" name="rut" value={worker.rut}/>
                             </Form.Group>
                         </Row>
-
                         <Form.Group className="mb-3" controlId="formGridAddress2" onChange={handleChange}>
                             <Form.Label>Cargo</Form.Label>
                             <Form.Select defaultValue="0" name="cargo" value={selectedGroup} onChange={handleGroupChange}>

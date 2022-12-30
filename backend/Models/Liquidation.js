@@ -47,4 +47,4 @@ const liquidationSchema = new mongoose.Schema({
     }
 });
 
-export default models.Liquidation || mongoose.model('Liquidation', liquidationSchema);
+export default models.Liquidation || model('Liquidation', liquidationSchema);
