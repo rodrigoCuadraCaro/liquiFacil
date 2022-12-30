@@ -11,10 +11,27 @@ export default function Login() {
     // @ts-ignore
     const handleChange = (e) => setLoginUser({...loginUser, [e.target.name]: e.target.value});
 
+    const login = async () => {
+        try {
+            const res = await fetch('http://localhost:3000/api/Users/userController?email='
+                +loginUser.email+'&password='+loginUser.password);
+            const us = await res.json();
+            us[0].email === loginUser.email && us[0].password === loginUser.password ? (
+                window.location.href = 'http://localhost:3000/Dashboard'
+            ): (alert ('Usuario incorrecto.'))
+
+        } catch (e) {
+            alert ('ha ocurrido un error inesperado')
+            console.error(e)
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        login();
         console.log('enviando formulario...');
     }
+
     return (
         <>
             <div className='grid grid-cols-2'>

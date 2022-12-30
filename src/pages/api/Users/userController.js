@@ -3,12 +3,17 @@ import User from '../../../../backend/Models/Users';
 
 dbConnect();
 export default async function handler(req, res) {
-    const {method, body} = req;
+    const {method, body, query:{email, password}} = req;
 
     switch (method){
         case "GET":
-            const users = await User.find();
-            return res.status(200).json(users);
+            try{
+                const users = await User.find({$and: [{email: email},{password: password}]});
+                return res.status(200).json(users);
+            }catch (e) {
+                console.log(e);
+                return res.status(400).json({msg: 'no se ha encontrado usuario'});
+            }
         case "POST":
             try{
                 const user = await new User(body).save();
